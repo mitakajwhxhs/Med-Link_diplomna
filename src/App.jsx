@@ -482,7 +482,6 @@ function App() {
   }, [])
 
   const createDoctorListing = useCallback((listing) => {
-    const hasActiveDoctorSubscription = currentSubscription?.status?.startsWith('active')
     const doctorListingCount = doctorListings.filter(
       (currentListing) =>
         currentListing.doctorId === currentUser?.id ||
@@ -500,20 +499,10 @@ function App() {
       return
     }
 
-    if (listing.status === 'published' && !hasActiveDoctorSubscription) {
-      setToast({
-        id: `listing-subscription-required-${Date.now()}`,
-        type: 'error',
-        title: 'Необходим е активен лекарски абонамент',
-        message:
-          'Можете да запазите чернова, но публикуването изисква активен месечен план.',
-      })
-      return
-    }
-
     const enrichedListing = {
       ...listing,
       publicDoctorId: listing.publicDoctorId || getListingDoctorId(listing.id),
+      available: listing.status === 'published' ? true : listing.available,
       doctorPhone: currentUser?.phone || listing.doctorPhone,
       doctorExperience: currentUser?.experience || listing.doctorExperience,
       doctorLanguages: currentUser?.languages || listing.doctorLanguages,
@@ -531,26 +520,13 @@ function App() {
           ? 'Обявата е публикувана успешно.'
           : 'Обявата е запазена като чернова.',
     })
-  }, [currentSubscription, currentUser, doctorListings])
+  }, [currentUser, doctorListings])
 
   const updateDoctorListing = useCallback((listing) => {
-    const hasActiveDoctorSubscription =
-      currentSubscription?.status?.startsWith('active')
-
-    if (listing.status === 'published' && !hasActiveDoctorSubscription) {
-      setToast({
-        id: `listing-edit-subscription-required-${Date.now()}`,
-        type: 'error',
-        title: 'Необходим е активен лекарски абонамент',
-        message:
-          'Можете да редактирате и запазите чернова, но публикуването изисква активен месечен план.',
-      })
-      return
-    }
-
     const enrichedListing = {
       ...listing,
       publicDoctorId: listing.publicDoctorId || getListingDoctorId(listing.id),
+      available: listing.status === 'published' ? true : listing.available,
       doctorPhone: currentUser?.phone || listing.doctorPhone,
       doctorExperience: currentUser?.experience || listing.doctorExperience,
       doctorLanguages: currentUser?.languages || listing.doctorLanguages,
@@ -575,7 +551,7 @@ function App() {
           ? 'Промените са запазени и публичната обява е обновена.'
           : 'Промените са запазени като чернова.',
     })
-  }, [currentSubscription, currentUser])
+  }, [currentUser])
 
   const deleteDoctorListing = useCallback((listing) => {
     const publicDoctorId = listing.publicDoctorId || getListingDoctorId(listing.id)

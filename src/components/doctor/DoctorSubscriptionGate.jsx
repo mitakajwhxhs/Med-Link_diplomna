@@ -12,8 +12,8 @@ import {
 
 const benefits = [
   {
-    title: 'До 2 активни обяви',
-    text: 'Публикувайте профилни обяви в MedLink',
+    title: 'Профилни обяви',
+    text: 'Публикуването е достъпно и без абонамент',
     icon: CalendarCheck2,
   },
   {
@@ -95,7 +95,7 @@ export default function DoctorSubscriptionGate({
               </p>
               <p className="mt-2 text-[24px] font-extrabold">Платен</p>
               <p className="mt-1 text-[13px] font-semibold text-white/80">
-                Вече можете да публикувате до 2 обяви.
+                Абонаментът е активен за допълнителните Plus предимства.
               </p>
             </div>
           ) : (

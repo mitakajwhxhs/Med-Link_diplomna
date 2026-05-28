@@ -30,7 +30,6 @@ function buildInitialForm(doctor, listing) {
 
 export default function CreateListingForm({
   doctor,
-  canPublish = true,
   listingLimitReached = false,
   initialListing = null,
   onCreateListing,
@@ -40,7 +39,7 @@ export default function CreateListingForm({
   const [form, setForm] = useState(() => buildInitialForm(doctor, initialListing))
   const [errors, setErrors] = useState({})
   const isEditMode = Boolean(initialListing)
-  const publishDisabled = !canPublish || (!isEditMode && listingLimitReached)
+  const publishDisabled = !isEditMode && listingLimitReached
   const draftDisabled = !isEditMode && listingLimitReached
 
   const updateField = (field, value) => {
@@ -116,12 +115,6 @@ export default function CreateListingForm({
           <p className="mt-1 text-[14px] font-semibold text-[#697894]">
             Работното време се задава автоматично: 09:00 - 17:00.
           </p>
-
-          {!canPublish ? (
-            <p className="mt-2 rounded-[10px] bg-[#FFF8E6] px-3 py-2 text-[13px] font-bold text-[#875A00]">
-              За публикуване е нужен активен MedLink Plus абонамент.
-            </p>
-          ) : null}
 
           {!isEditMode && listingLimitReached ? (
             <p className="mt-2 rounded-[10px] bg-[#FFF3F2] px-3 py-2 text-[13px] font-bold text-[#B42318]">

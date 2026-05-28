@@ -16,7 +16,7 @@ export default function DoctorSubscriptionPlansPage({
             Изберете лекарски план
           </h2>
           <p className="mt-1 max-w-[640px] text-[14px] font-semibold leading-6 text-[#526383]">
-            Абонаментът отключва публикуване на до 2 обяви, онлайн консултации и
+            Абонаментът добавя онлайн консултации, допълнителни Plus функции и
             приоритетна поддръжка.
           </p>
         </div>

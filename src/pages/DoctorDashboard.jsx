@@ -86,11 +86,9 @@ export default function DoctorDashboard({
       doctorId: user.id,
       doctorEmail: user.email,
       doctorName: user.name,
-      available: listing.status !== 'published' || hasActiveSubscription,
+      available: listing.status === 'published' ? true : listing.available,
     })
-    if (listing.status !== 'published' || hasActiveSubscription) {
-      setActiveView('listings')
-    }
+    setActiveView('listings')
   }
 
   const editListing = (listing) => {
@@ -104,7 +102,7 @@ export default function DoctorDashboard({
       doctorId: user.id,
       doctorEmail: user.email,
       doctorName: user.name,
-      available: listing.status !== 'published' || hasActiveSubscription,
+      available: listing.status === 'published' ? true : listing.available,
     })
     setEditingListing(null)
     setActiveView('listings')
@@ -157,7 +155,6 @@ export default function DoctorDashboard({
         <div className="grid gap-5">
           <CreateListingForm
             doctor={user}
-            canPublish={hasActiveSubscription}
             listingLimitReached={listingLimitReached}
             onCreateListing={createListing}
           />
@@ -181,7 +178,6 @@ export default function DoctorDashboard({
           <CreateListingForm
             key={editingListing.id}
             doctor={user}
-            canPublish={hasActiveSubscription}
             listingLimitReached={false}
             initialListing={editingListing}
             onUpdateListing={updateListing}

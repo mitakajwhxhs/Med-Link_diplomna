@@ -95,7 +95,7 @@ export default function Footer() {
           <div className="mt-5 grid gap-4">
             <ContactRow icon={Phone}>+359 888 120 274</ContactRow>
             <ContactRow icon={MessageCircle}>Viber консултант</ContactRow>
-            <ContactRow icon={Mail}>support@medlink.bg</ContactRow>
+            <ContactRow icon={Mail}>Поддръжка MedLink</ContactRow>
             <ContactRow icon={MapPin}>бул. Здраве 14, София</ContactRow>
           </div>
         </section>
