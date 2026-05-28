@@ -1,5 +1,6 @@
+import { buildApiUrl } from './apiBase'
+
 const tokenStorageKey = 'medlink-auth-token'
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || ''
 
 export class AuthApiError extends Error {
   constructor(message, payload = {}, status = 0) {
@@ -33,7 +34,7 @@ export async function authRequest(path, { method = 'POST', body, token } = {}) {
 
   if (authToken) headers.Authorization = `Bearer ${authToken}`
 
-  const response = await fetch(`${apiBaseUrl}/api/auth${path}`, {
+  const response = await fetch(buildApiUrl(`/api/auth${path}`), {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,

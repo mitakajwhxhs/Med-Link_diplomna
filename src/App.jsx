@@ -19,6 +19,7 @@ import LikedPage from './pages/LikedPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import VerifyEmailPage from './pages/VerifyEmailPage'
+import { buildApiUrl } from './utils/apiBase'
 import { buildPublicDoctors, getListingDoctorId } from './utils/publicDoctors'
 import { formatEuroPrice } from './utils/currency'
 import {
@@ -779,7 +780,7 @@ function App() {
       try {
         logStripeFrontendDiagnostics()
 
-        const response = await fetch('/api/stripe/create-checkout-session', {
+        const response = await fetch(buildApiUrl('/api/stripe/create-checkout-session'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -826,7 +827,9 @@ function App() {
   const verifyStripeCheckout = useCallback(
     async (sessionId) => {
       try {
-        const response = await fetch(`/api/stripe/checkout-session/${sessionId}`)
+        const response = await fetch(
+          buildApiUrl(`/api/stripe/checkout-session/${sessionId}`),
+        )
         const result = await response.json().catch(() => ({}))
 
         if (!response.ok) {
@@ -864,7 +867,9 @@ function App() {
           }
 
           const statusResponse = await fetch(
-            `/api/stripe/subscription-status/${encodeURIComponent(userId)}`,
+            buildApiUrl(
+              `/api/stripe/subscription-status/${encodeURIComponent(userId)}`,
+            ),
           )
           const statusPayload = await statusResponse.json().catch(() => ({}))
 

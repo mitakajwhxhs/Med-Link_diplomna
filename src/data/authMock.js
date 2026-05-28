@@ -1,3 +1,5 @@
+import { buildApiUrl } from '../utils/apiBase'
+
 export const demoUsers = [
   {
     id: 'patient-demo',
@@ -150,7 +152,7 @@ export async function validateDoctorCodeWithBackend(code) {
   const normalizedCode = code.trim().toUpperCase()
 
   try {
-    const response = await fetch('/api/doctors/validate-code', {
+    const response = await fetch(buildApiUrl('/api/doctors/validate-code'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ doctorCode: normalizedCode }),
